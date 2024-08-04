@@ -1,0 +1,87 @@
+﻿@model CrudWithImageUploading.Models.ViewModel
+@{
+    ViewData["title"] = "Create Data";
+}
+
+<style>
+    form .form-control{
+        box-shadow: none !important;
+    }
+    form .form-select{
+        box-shadow: none !important;
+    }
+</style>
+
+<div class="row">
+    <div class="mt-2 mb-4 rounded bg-primary shadow-lg">
+        <div class="text-center py-1 h3 text-white">Student Form Data</div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                @Html.Raw(TempData["SuccessMessage"]);
+            });
+        </script>
+    }
+    
+
+    <form asp-action="Create" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="Name" class="form-label">Name</label>
+            <input type="text" asp-for="students.Std_Name" class="form-control" id="Name">
+            <span asp-validation-for="students.Std_Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="Email" class="form-label">Email</label>
+            <input type="email" asp-for="students.Std_Email" class="form-control" id="Email">
+            <span asp-validation-for="students.Std_Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="Phone" class="form-label">Phone</label>
+            <input type="text" asp-for="students.Std_Phone" class="form-control" id="Phone">
+            <span asp-validation-for="students.Std_Phone" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label class="control-label me-3">Gender:</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" asp-for="studentInfo.Gender" id="inlineRadio1" value="Male" />
+                <label class="form-check-label">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" asp-for="studentInfo.Gender" id="inlineRadio2" value="Fmale" />
+                <label class="form-check-label">Female</label>
+            </div>
+            <span asp-validation-for="studentInfo.Gender" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <select class="form-select" id="countrySelect" asp-for="studentInfo.Country">
+                        <option selected disabled>Select Country</option>
+                    </select>
+                    <span asp-validation-for="studentInfo.Country" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <select id="citySelect" class="form-select" asp-for="studentInfo.City">
+                        <option selected disabled>Select City</option>
+                    </select>
+                     <span asp-validation-for="studentInfo.City" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="my-3">
+            <label for="Image" class="form-label">Image</label>
+            <input type="file" class="form-control" name="Std_Image" id="Image">
+            <span asp-validation-for="studentInfo.Std_Image" class="text-danger"></span>
+        </div>
+        <div class="my-3">
+            <input type="submit" value="Submit Data" class="btn btn-primary">
+        </div>
+    </form>
+    
+
+</div>

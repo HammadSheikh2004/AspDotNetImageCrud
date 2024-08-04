@@ -1,0 +1,48 @@
+﻿@model List<CrudWithImageUploading.Models.ViewModel>
+@{
+    ViewData["Title"] = "Show Student Data";
+}
+
+<div class="row">
+    <div class="mt-2 mb-4 rounded bg-primary shadow-lg">
+        <div class="text-center py-1 h3 text-white">Display Form Data</div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Country</th>
+                <th scope="col">City</th>
+                <th scope="col">Image</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.students.Std_Id</th>
+                    <td>@item.students.Std_Name</td>
+                    <td>@item.students.Std_Email</td>
+                    <td>@item.students.Std_Phone</td>
+                    <td>@item.studentInfo.Country</td>
+                    <td>@item.studentInfo.City</td>
+                    <td><img src="@Url.Content("~/Student_Images/" + item.studentInfo.Std_Image)" width="50" height="50" /></td>
+                    <td>
+                        <a asp-action="EditData" class="btn btn-primary" asp-route-id="@item.students.Std_Id">Edit Data</a>
+                        <a asp-action="DeleteData" asp-controller="Student" class="btn btn-danger" asp-route-id="@item.students.Std_Id">Delete Data</a>
+                    </td>
+                </tr>
+            }
+            
+        </tbody>
+    </table>
+
+
+
+
+</div>

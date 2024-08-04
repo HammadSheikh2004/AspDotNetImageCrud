@@ -1,0 +1,100 @@
+﻿@model CrudWithImageUploading.Models.ViewModel
+@{
+    ViewData["title"] = "Update Data";
+}
+
+<style>
+    form .form-control {
+        box-shadow: none !important;
+    }
+
+    form .form-select {
+        box-shadow: none !important;
+    }
+</style>
+
+<div class="row">
+
+    <div class="mt-2 mb-4 rounded bg-primary shadow-lg">
+        <div class="text-center py-1 h3 text-white">Update Form Data</div>
+    </div>
+
+    <form asp-action="EditData" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="Name" class="form-label">Name</label>
+            @Html.HiddenFor(model => model.students.Std_Id);
+            @Html.HiddenFor(model => model.studentInfo.Std_Info_Id);
+            @Html.HiddenFor(model => model.studentInfo.Std_Image);
+            <input type="text" asp-for="students.Std_Name" class="form-control" id="Name">
+            <span asp-validation-for="students.Std_Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="Email" class="form-label">Email</label>
+            <input type="email" asp-for="students.Std_Email" class="form-control" id="Email">
+            <span asp-validation-for="students.Std_Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="Phone" class="form-label">Phone</label>
+            <input type="text" asp-for="students.Std_Phone" class="form-control" id="Phone">
+            <span asp-validation-for="students.Std_Phone" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label class="control-label me-3">Gender:</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" asp-for="studentInfo.Gender" id="inlineRadio1" value="Male" />
+                <label class="form-check-label">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" asp-for="studentInfo.Gender" id="inlineRadio2" value="Fmale" />
+                <label class="form-check-label">Female</label>
+            </div>
+            <span asp-validation-for="studentInfo.Gender" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <select class="form-select" id="countrySelect" asp-for="studentInfo.Country">
+                        <option selected disabled>Select Country</option>
+                        @if(ViewBag.Country != null)
+                        {
+                            @foreach (var country in ViewBag.Country)
+                            {
+                                <option value="@country">@country</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="studentInfo.Country" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <select id="citySelect" class="form-select" asp-for="studentInfo.City">
+                        <option selected disabled>Select City</option>
+                        @if(ViewBag.City != null)
+                        {
+                            @foreach (var city in ViewBag.City)
+                            {
+                                <option value="@city">@city</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="studentInfo.City" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="my-3">
+            <label for="Image" class="form-label">Image</label>
+            @if (Model != null && !string.IsNullOrEmpty(Model.studentInfo.Std_Image))
+            {
+                <img src="@Url.Content("~/Student_Images/" + Model.studentInfo.Std_Image)" width="50" height="50" />
+            }
+            <input type="file" class="form-control" name="Std_Image" id="Image">
+            <span asp-validation-for="studentInfo.Std_Image" class="text-danger"></span>
+        </div>
+        <div class="my-3">
+            <input type="submit" value="Update Data" class="btn btn-primary">
+        </div>
+    </form>
+
+
+</div>
